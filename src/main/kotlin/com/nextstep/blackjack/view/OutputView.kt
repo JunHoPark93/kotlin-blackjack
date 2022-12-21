@@ -13,11 +13,11 @@ object OutputView {
         val sb = StringBuilder()
         val playerNames = players.players.map { it.name }
         sb.append("딜러와 " + "${playerNames.joinToString(", ")} 에게 2 장의 카드를 나누었습니다 .\n")
-        sb.append("딜러:" + dealer.cards.joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
+        sb.append("딜러:" + dealer.getCards().joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
             .append("\n")
         players.players.forEach { it ->
             sb.append("${it.name}카드:")
-            sb.append(it.cards.joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
+            sb.append(it.getCards().joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
             sb.append("\n")
         }
         println(sb)
@@ -33,17 +33,17 @@ object OutputView {
 
     fun printPlayerOngoingStatusMessage(player: Player) {
         print("${player.name}카드:")
-        println(player.cards.joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
+        println(player.getCards().joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
     }
 
     fun printStatusMessage(dealer: Dealer, players: Players) {
         println()
-        print("${dealer.name}카드: ")
-        print(dealer.cards.joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
+        print("${dealer.getName()}카드: ")
+        print(dealer.getCards().joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
         println(" - 결과: ${dealer.calculateScore()}")
         for (player in players.players) {
             print("${player.name}카드: ")
-            print(player.cards.joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
+            print(player.getCards().joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
             println(" - 결과: ${player.calculateScore()}")
         }
     }

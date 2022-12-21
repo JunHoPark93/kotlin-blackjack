@@ -1,7 +1,7 @@
 package com.nextstep.blackjack.domain
 
-open class BasePlayer(open val name: String) {
-    protected val _cards: MutableList<Card> = mutableListOf()
+class BasePlayerAction(val name: String) {
+    private val _cards: MutableList<Card> = mutableListOf()
 
     val cards: List<Card>
         get() {
@@ -37,4 +37,8 @@ open class BasePlayer(open val name: String) {
     }
 
     private fun containsAce() = _cards.any { it.cardNumber == CardNumber.ACE }
+
+    fun addAll(cards: List<Card>) {
+        _cards.addAll(cards)
+    }
 }
