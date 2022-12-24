@@ -1,6 +1,6 @@
 package com.nextstep.blackjack.domain
 
-data class Dealer(var deck: Deck) {
+data class Dealer(private var deck: Deck) {
     private val basePlayerAction: BasePlayerAction = BasePlayerAction("딜러")
 
     init {
@@ -32,9 +32,11 @@ data class Dealer(var deck: Deck) {
         if (basePlayerAction.calculateScore() > BlackJackConstants.BLACKJACK_NUMBER) {
             return emptyList()
         }
-        return players.players
-            .filter { !it.isBust() }
-            .filter { it.calculateScore() <= basePlayerAction.calculateScore() }
+
+        val bustPlayers = players.players.filter { it.isBust() }
+        val beatPlayers =
+            players.players.filter { !it.isBust() && it.calculateScore() <= basePlayerAction.calculateScore() }
+        return bustPlayers + beatPlayers
     }
 
     fun calculateScore(): Int {
@@ -43,6 +45,10 @@ data class Dealer(var deck: Deck) {
 
     fun getCards(): List<Card> {
         return basePlayerAction.cards
+    }
+
+    fun getFirstCard(): Card {
+        return basePlayerAction.cards.first()
     }
 
     fun getName(): String {

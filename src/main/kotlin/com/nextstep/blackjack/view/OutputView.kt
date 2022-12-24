@@ -13,7 +13,7 @@ object OutputView {
         val sb = StringBuilder()
         val playerNames = players.players.map { it.name }
         sb.append("딜러와 " + "${playerNames.joinToString(", ")} 에게 2 장의 카드를 나누었습니다 .\n")
-        sb.append("딜러:" + dealer.getCards().joinToString(",") { it.cardNumber.number.toString() + it.symbol.symbol })
+        sb.append("딜러:" + dealer.getFirstCard().cardNumber.number.toString() + dealer.getFirstCard().symbol.symbol)
             .append("\n")
         players.players.forEach { it ->
             sb.append("${it.name}카드:")

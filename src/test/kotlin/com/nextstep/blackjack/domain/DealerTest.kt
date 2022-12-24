@@ -11,20 +11,20 @@ class DealerTest : FunSpec({
             listOf(
                 row(
                     listOf(Card(Symbol.CLOVER, CardNumber.THREE)),
-                    true
+                    false
                 ),
                 row(
                     listOf(
                         Card(Symbol.CLOVER, CardNumber.QUEEN),
                         Card(Symbol.CLOVER, CardNumber.KING)
                     ),
-                    false
+                    true
                 )
             ).forAll { (cards, expected) ->
                 run {
                     val dealer = Dealer(Deck.createDeck())
                     dealer.draw(cards)
-                    dealer.isUpperThreshold() == expected
+                    dealer.isUpperThreshold() shouldBe expected
                 }
             }
         }
